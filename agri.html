@@ -92,11 +92,7 @@
         <h1 class="tagline">Fair Prices. Easy Trade. Smarter Farming.</h1>
         <p class="sub">A simple platform to help farmers sell produce, buy crops, and rent equipment — all in one place.</p>
 
-        <div class="cta">
-          <button class="btn btn-primary" onclick="showPage('sell')">Sell Crops</button>
-          <button class="btn btn-outline" onclick="showPage('buy')">Buy Crops</button>
-          <button class="btn btn-light" onclick="showPage('rent')">Rent Equipment</button>
-        </div>
+        
 
         <div class="ticker" id="priceTicker"></div>
 
@@ -119,59 +115,7 @@
     </section>
   </main>
 
-  <!-- SELL CROPS PAGE -->
-  <main id="sell" class="page">
-    <h2>Sell Crops</h2>
-    <form>
-      <input type="text" placeholder="Crop Name" required>
-      <input type="number" placeholder="Quantity (kg)" required>
-      <input type="number" placeholder="Price (₹ per kg)" required>
-      <input type="text" placeholder="Location" required>
-      <select required>
-        <option value="">Choose Sale Type</option>
-        <option>Fixed Price</option>
-        <option>Auction</option>
-      </select>
-      <textarea placeholder="Additional details..."></textarea>
-      <button type="submit" class="btn btn-primary">Post Crop</button>
-    </form>
-    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
-  </main>
 
-  <!-- BUY CROPS PAGE -->
-  <main id="buy" class="page">
-    <h2>Buy Crops</h2>
-    <form>
-      <input type="text" placeholder="Search crop (e.g., Wheat, Rice)">
-      <input type="text" placeholder="Location">
-      <input type="number" placeholder="Max Price (₹/kg)">
-      <select>
-        <option value="">Filter by Type</option>
-        <option>Organic</option>
-        <option>Graded Quality</option>
-      </select>
-      <button type="submit" class="btn btn-primary">Search</button>
-    </form>
-    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
-  </main>
-
-  <!-- RENT EQUIPMENT PAGE -->
-  <main id="rent" class="page">
-    <h2>Rent / Buy Equipment</h2>
-    <form>
-      <input type="text" placeholder="Equipment Name (e.g., Tractor)" required>
-      <input type="text" placeholder="Location" required>
-      <input type="number" placeholder="Cost per day (₹)" required>
-      <select required>
-        <option value="">Choose Option</option>
-        <option>Rent Equipment</option>
-        <option>List Equipment for Rent</option>
-      </select>
-      <textarea placeholder="Additional details..."></textarea>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
-  </main>
 
   <!-- SIGNUP PAGE -->
   <main id="signup" class="page">
