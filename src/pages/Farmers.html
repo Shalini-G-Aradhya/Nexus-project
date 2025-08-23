@@ -1,0 +1,45 @@
+
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farmers Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { color: green; }
+    .box { border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .btn { display: inline-block; padding: 10px 15px; background: green; color: white; text-decoration: none; border-radius: 5px; }
+    .btn:hover { background: darkgreen; }
+  </style>
+</head>
+<body>
+  <h1>👨‍🌾 Farmers Dashboard</h1>
+
+  <div class="box">
+    <h2>🌾 Your Crops</h2>
+    <p>No crops added yet.</p>
+  </div>
+
+  <div class="box">
+    <h2>🛒 Buyers & Bids</h2>
+    <table border="1" cellpadding="8" cellspacing="0" width="100%">
+      <thead style="background:#f0f0f0">
+        <tr>
+          <th>Buyer</th>
+          <th>Bid (₹)</th>
+          <th>Payment Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ramesh Traders</td><td>₹1500</td><td style="color:green;">Paid</td></tr>
+        <tr><td>Lakshmi Agro</td><td>₹1400</td><td style="color:orange;">Pending</td></tr>
+        <tr><td>Krishna Buyers</td><td>₹1550</td><td style="color:green;">Paid</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <a href="buyers.html" class="btn">➡ Go to Buyers Page</a>
+</body>
+</html>
