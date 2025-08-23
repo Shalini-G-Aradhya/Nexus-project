@@ -1,0 +1,93 @@
+/* Body with full-page background image and faded overlay */
+body {
+  font-family: Arial, sans-serif;
+  background: url('sapling.webp') no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Faded overlay over the background */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* dark overlay, adjust opacity as needed */
+  z-index: 0;
+}
+
+/* Main container (form) */
+.container {
+  background: rgba(255, 255, 255, 0.7); /* was 0.9, now more transparent */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  width: 350px;
+  text-align: center;
+  position: relative;
+  z-index: 1; /* stays above overlay */
+}
+
+/* Heading */
+h1 {
+  margin-bottom: 20px;
+}
+
+/* Item and amount display */
+#itemInfo {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+#itemInfo div {
+  margin: 5px 0;
+}
+
+/* Payment options */
+.options {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Button styling */
+button {
+  padding: 10px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: darkgreen;
+}
+
+/* Hide forms initially */
+.hidden {
+  display: none;
+}
+
+/* Result messages */
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+}
