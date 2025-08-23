@@ -51,7 +51,6 @@ th, td{padding:8px;text-align:left;}
 .small{color:var(--muted);font-size:14px}
 footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-top:30px}
 
-/* Payment modal */
 #paymentModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;}
 #paymentContainer { background:white; padding:20px; border-radius:10px; width:350px; text-align:center;}
 .hidden { display:none; }
@@ -71,7 +70,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
   </nav>
 </header>
 
-<!-- HOME PAGE -->
+
 <main id="home" class="page active">
   <div class="hero">
     <div class="hero-inner">
@@ -118,7 +117,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
   </footer>
 </main>
 
-<!-- SIGNUP PAGE -->
+
 <main id="signup" class="page">
   <div class="content-card">
     <h2>Sign Up</h2>
@@ -137,7 +136,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
   </div>
 </main>
 
-<!-- LOGIN PAGE -->
+
 <main id="login" class="page">
   <div class="content-card">
     <h2>Login</h2>
@@ -155,7 +154,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
   </div>
 </main>
 
-<!-- SUPPORT PAGE -->
+
   <main id="support" class="page">
     <div class="content-card">
     <h2>Support</h2>
@@ -164,7 +163,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
     </div>
   </main>
 
-<!-- BUYER DASHBOARD -->
+
 <main id="buyerDashboard" class="page">
   <div class="content-card">
     <h1>🛒 Buyer Dashboard</h1>
@@ -178,7 +177,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
   </div>
 </main>
 
-<!-- FARMER DASHBOARD -->
+
 <main id="farmerDashboard" class="page">
   <div class="content-card">
     <h1>👨‍🌾 Farmers Dashboard</h1>
@@ -200,7 +199,6 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
   </div>
 </main>
 
-<!-- EQUIPMENT DASHBOARD -->
 <main id="equipmentDashboard" class="page">
   <div class="content-card">
     <h1>🚜 Equipment Rental Dashboard</h1>
@@ -242,7 +240,6 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
   </div>
 </main>
 
-<!-- PAYMENT MODAL -->
 <div id="paymentModal">
   <div id="paymentContainer">
     <h2>Choose Payment Method</h2>
@@ -272,16 +269,16 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-t
 </div>
 
 <script>
-// Set current year
+
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Page navigation
+
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-// Signup/Login
+
 document.getElementById('signupForm').addEventListener('submit', function(e){
   e.preventDefault();
   const role = this.querySelector('select').value;
@@ -297,7 +294,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e){
   else if(role==='Equipment Provider'){ showPage('equipmentDashboard'); } 
 });
 
-// Crop price ticker simulation
+
 const cropsTicker = [
   {name:'Tomato', unit:'₹/kg', price:24.50},
   {name:'Wheat', unit:'₹/kg', price:22.00},
@@ -326,7 +323,6 @@ function jitterPrices(){
 renderTicker();
 setInterval(jitterPrices, 3000);
 
-// Buyer logic
 const crops = [
   { name:"Tomato", price:25, location:"Bangalore", img:"https://imgs.search.brave.com/5N1rDmEdNinjcgoZdvlo0Oe4IKfnqBOGbOcPKRpbAuk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNTEv/MTQzLzg4MC9zbWFs/bC90b21hdG8tdHJh/bnNwYXJlbnQtYmFj/a2dyb3VuZC1wbmcu/cG5n" },
   { name:"Wheat", price:22, location:"Mysore", img:"https://imgs.search.brave.com/w9ZNX-UVRDvw3TPDVYh6dlc7fmbKjeJjfan_gZsVV1k/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA1/NTUwMzUyMi9waG90/by9lYXJzLW9mLXdo/ZWF0LWZ1bGwtZnJh/bWUuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPWZuX0c4a3Nr/N0FmQ0FqSlE3NmZa/NkhBTGJhSkZROHk2/OHRja0w3cEJ6a2s9" },
@@ -387,7 +383,7 @@ document.querySelectorAll('input[name="payment"]').forEach(option=>{
 function processCard(){ result.innerHTML=`Card payment done ✅<br>${displayItem.textContent}<br>${displayAmount.textContent}`; }
 function processUPI(){ result.innerHTML=`UPI payment done ✅<br>${displayItem.textContent}<br>${displayAmount.textContent}`; }
 
-// Farmer dashboard
+
 const cropForm = document.getElementById('cropForm');
 const cropsList = document.getElementById('cropsList');
 cropForm.addEventListener('submit', function(e){
@@ -400,7 +396,7 @@ cropForm.addEventListener('submit', function(e){
   cropForm.reset();
 });
 
-// Equipment dashboard
+
 const equipForm=document.getElementById('equipForm');
 const equipTable=document.getElementById('equipTable').getElementsByTagName('tbody')[0];
 equipForm.addEventListener('submit', function(e){
