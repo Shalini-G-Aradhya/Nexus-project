@@ -8,7 +8,7 @@ const crops = [
 const cropList = document.getElementById("cropList");
 const ordersList = document.getElementById("ordersList");
 
-// Show crops
+
 crops.forEach(crop => {
   let div = document.createElement("div");
   div.className = "crop-card";
@@ -33,7 +33,7 @@ function makeOffer(name) {
   let offer = prompt("Enter your offer price for " + name);
   if (offer) {
     let li = document.createElement("li");
-    li.textContent = `Offer made for ${name} at ₹${offer}/kg`;
+    li.textContent = `Offer made for ${name} at rs${offer}/kg`;
     ordersList.appendChild(li);
   }
 }

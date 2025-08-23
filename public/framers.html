@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>👨‍🌾 Farmers Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fff7;
+    }
+
+    header {
+      background: linear-gradient(90deg, green, darkgreen);
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: green;
+      margin-top: 25px;
+      border-bottom: 2px solid #e9f9e9;
+      padding-bottom: 5px;
+    }
+
+    form input, form select, form button {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    form button {
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    form button:hover {
+      background: darkgreen;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      background: #f0f9f0;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #e9f9e9;
+    }
+
+    .paid {
+      color: green;
+      font-weight: bold;
+    }
+
+    .pending {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .nav-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 15px;
+      background: #0077cc;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>👨‍🌾 Farmers Dashboard</h1>
+  </header>
+
+  <div class="container">
+
+    
+    <h2>🌱 Add Your Crop</h2>
+    <form id="cropForm">
+      <input type="text" id="cropName" placeholder="Crop Name" required>
+      <input type="number" id="cropQty" placeholder="Quantity (kg)" required>
+      <input type="number" id="cropPrice" placeholder="Base Price (₹)" required>
+      <button type="submit">➕ Add Crop</button>
+    </form>
+
+    
+    <h2>🌾 Your Crops</h2>
+    <ul id="cropList">
+      <li>No crops added yet.</li>
+    </ul>
+
+    <h2>🚜 Equipment Rental</h2>
+    <form id="equipForm">
+      <select id="equipType" required>
+        <option value="">-- Select Equipment --</option>
+        <option value="Tractor">Tractor</option>
+        <option value="Harvester">Harvester</option>
+        <option value="Plough">Plough</option>
+        <option value="Seeder">Seeder</option>
+        <option value="Sprayer">Sprayer</option>
+      </select>
+      <input type="number" id="equipPrice" placeholder="Rent Price per Day (₹)" required>
+      <input type="text" id="equipContact" placeholder="Contact Number" required>
+      <button type="submit">➕ Add Equipment</button>
+    </form>
+
+    <h3>Available Equipments</h3>
+    <table id="equipTable">
+      <thead>
+        <tr>
+          <th>Equipment</th>
+          <th>Rent (₹/day)</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tractor</td>
+          <td>₹1200</td>
+          <td>9876543210</td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <a href="agri.html" class="nav-btn">➡️ Go to Buyers Page</a>
+    <a href="home.html" class="nav-btn"> Go to home Page</a>
+
+  </div>
+
+  <script>
+
+    const cropForm = document.getElementById("cropForm");
+    const cropList = document.getElementById("cropList");
+
+    cropForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("cropName").value;
+      const qty = document.getElementById("cropQty").value;
+      const price = document.getElementById("cropPrice").value;
+
+      if (cropList.children[0].innerText === "No crops added yet.") {
+        cropList.innerHTML = "";
+      }
+      const li = document.createElement("li");
+      li.innerText = `${name} - ${qty} kg - Base ₹${price}`;
+      cropList.appendChild(li);
+
+      cropForm.reset();
+    });
+
+
+    const equipForm = document.getElementById("equipForm");
+    const equipTable = document.getElementById("equipTable").querySelector("tbody");
+
+    equipForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const type = document.getElementById("equipType").value;
+      const price = document.getElementById("equipPrice").value;
+      const contact = document.getElementById("equipContact").value;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${type}</td><td>₹${price}</td><td>${contact}</td>`;
+      equipTable.appendChild(row);
+
+      equipForm.reset();
+    });
+  </script>
+
+</body>
+</html>
