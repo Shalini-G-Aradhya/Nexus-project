@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Farmers' Platform</title>
+  <style>
+    :root {
+      --accent:#2b8a3e;
+      --muted:#6b7280;
+      --bg:#f7faf7;
+      font-family:Inter,system-ui,Arial,Helvetica,sans-serif
+    }
+
+    body {
+      margin: 0;
+      background: url("https://imgs.search.brave.com/OunwO0VJJnoNTXNISs_jataGz8UuguBhY8IiJw3s7Hk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNDkv/NzU2LzcxNC9zbWFs/bC9mYXJtZXItaG9s/ZGluZy1iYXNrZXQt/d2l0aC10b21hdG9l/cy0yZC1jYXJ0b29u/LWFuaW1hdGlvbi1m/cmVlLXZpZGVvLmpw/Zw") no-repeat center center fixed;
+      background-size: cover;
+      color: #0f172a;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Light overlay on full page */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.7); /* adjust opacity for lightness */
+      z-index: -1;
+    }
+
+    header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:16px 24px;
+      background:white;
+      box-shadow:0 1px 6px rgba(2,6,23,.06)
+    }
+    .logo{font-weight:700;color:var(--accent)}
+    nav a{margin-left:14px;color:var(--muted);text-decoration:none;font-weight:600;cursor:pointer}
+
+    .hero{padding:48px 24px;max-width:900px;margin:0 auto}
+    .hero-inner{background:white;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,.06)}
+    .tagline{font-size:28px;margin:0 0 12px 0}
+    .sub{color:var(--muted);margin:0 0 18px 0}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:10px 16px;border-radius:8px;border:0;font-weight:700;cursor:pointer}
+    .btn-primary{background:var(--accent);color:white}
+    .btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+    .btn-light{border:2px solid #ccc;background:white}
+
+    .ticker{margin-top:16px;padding:10px;border-radius:8px;background:#eef6ee;display:flex;gap:12px;align-items:center;overflow:hidden;flex-wrap:wrap}
+    .ticker-item{min-width:120px;padding:6px 10px;border-radius:6px;background:white;box-shadow:0 2px 6px rgba(2,6,23,.04);display:flex;justify-content:space-between;align-items:center}
+    .price{font-weight:800;color:var(--accent)}
+
+    .quick-links{display:flex;gap:14px;margin-top:14px}
+    .qlink{padding:8px 10px;background:transparent;border-radius:8px;border:1px solid #e6eef0;color:var(--muted);text-decoration:none;cursor:pointer}
+
+    .about-card{background:white;padding:18px;margin-top:20px;border-radius:12px;box-shadow:0 6px 16px rgba(2,6,23,.04);text-align:left}
+    .services{display:flex;gap:12px;margin-top:12px}
+    .icon{width:56px;height:56px;border-radius:10px;background:#f1f9f2;display:flex;align-items:center;justify-content:center}
+    .small{color:var(--muted);font-size:14px}
+
+    footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-top:30px}
+
+    /* Pages */
+    .page{display:none;padding:40px 24px;max-width:700px;margin:0 auto}
+    .page.active{display:block}
+    form{background:white;padding:24px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:12px}
+    input,select,textarea{padding:10px;border-radius:8px;border:1px solid #ccc;font-size:15px}
+    textarea{resize:vertical}
+    .back-link{color:var(--accent);font-weight:600;cursor:pointer;text-decoration:none;margin-top:10px;display:inline-block}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">NEXUS</div>
+    <nav>
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('signup')">Sign Up</a>
+      <a onclick="showPage('login')">Login</a>
+      <a onclick="showPage('support')">Support</a>
+    </nav>
+  </header>
+
+  <!-- HOME PAGE -->
+  <main id="home" class="page active">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="tagline">Fair Prices. Easy Trade. Smarter Farming.</h1>
+        <p class="sub">A simple platform to help farmers sell produce, buy crops, and rent equipment — all in one place.</p>
+
+        
+
+        <div class="ticker" id="priceTicker"></div>
+
+        <div class="quick-links">
+          <a class="qlink" onclick="showPage('signup')">Sign Up</a>
+          <a class="qlink" onclick="showPage('login')">Login</a>
+          <a class="qlink" onclick="showPage('support')">Support</a>
+        </div>
+
+        <div class="about-card">
+          <h3>About the Platform</h3>
+          <p class="small">We connect farmers with buyers and equipment owners. Transparent pricing, secure transactions, and local support.</p>
+          <div class="services">
+            <div><div class="icon">🌾</div><div class="small">Sell</div></div>
+            <div><div class="icon">🛒</div><div class="small">Buy</div></div>
+            <div><div class="icon">🔧</div><div class="small">Rent</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+
+  <!-- SIGNUP PAGE -->
+  <main id="signup" class="page">
+    <h2>Sign Up</h2>
+    <form>
+      <input type="text" placeholder="Full Name" required>
+      <input type="tel" placeholder="Mobile Number (OTP)" required>
+      <input type="email" placeholder="Email (optional)">
+      <input type="text" placeholder="Aadhaar (optional)">
+      <select required>
+        <option value="">Select Role</option>
+        <option>Farmer</option>
+        <option>Buyer</option>
+        <option>Equipment Provider</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
+  </main>
+
+  <!-- LOGIN PAGE -->
+  <main id="login" class="page">
+    <h2>Login</h2>
+    <form>
+      <input type="tel" placeholder="Mobile Number" required>
+      <input type="password" placeholder="Password / OTP" required>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
+  </main>
+
+  <!-- SUPPORT PAGE -->
+  <main id="support" class="page">
+    <h2>Support</h2>
+    <p class="small">For help, contact us at <b>support@nexus.com</b> or call 1800-123-456.</p>
+    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Nexus — Built for farmers
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Crop price ticker simulation
+    const crops = [
+      {name:'Tomato', unit:'₹/kg', price:24.50},
+      {name:'Wheat', unit:'₹/kg', price:22.00},
+      {name:'Onion', unit:'₹/kg', price:18.75},
+      {name:'Potato', unit:'₹/kg', price:14.20},
+      {name:'Rice', unit:'₹/kg', price:35.00}
+    ];
+    const ticker = document.getElementById('priceTicker');
+
+    function renderTicker(){
+      ticker.innerHTML = '';
+      crops.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'ticker-item';
+        item.innerHTML = `<div>${c.name}</div><div class='price'>${c.price.toFixed(2)}<span style="font-size:12px;margin-left:4px;color:var(--muted)">${c.unit}</span></div>`;
+        ticker.appendChild(item);
+      });
+    }
+    function jitterPrices(){
+      crops.forEach(c => {
+        const change = (Math.random()-0.5) * (c.price * 0.03);
+        c.price = Math.max(1, c.price + change);
+      });
+      renderTicker();
+    }
+    renderTicker();
+    setInterval(jitterPrices, 3000);
+
+    // Page navigation
+    function showPage(id){
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>

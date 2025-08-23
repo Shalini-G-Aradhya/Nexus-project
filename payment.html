@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Page</title>
+  <link rel="stylesheet" href="payment.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Choose Payment Method</h1>
+
+    <div id="itemInfo">
+      <div>Item: <strong id="displayItem">—</strong></div>
+      <div>Total Amount: <strong id="displayAmount">₹0.00</strong></div>
+    </div>
+
+    <div class="options">
+      <label><input type="radio" name="payment" value="card"> Card Payment</label>
+      <label><input type="radio" name="payment" value="cod"> Cash on Delivery (COD)</label>
+      <label><input type="radio" name="payment" value="upi"> UPI Payment</label>
+    </div>
+
+    <!-- Card Payment Form -->
+    <form id="cardForm" class="hidden">
+      <input type="text" id="cardName" placeholder="Cardholder Name" required>
+      <input type="text" id="cardNumber" inputmode="numeric" pattern="\d{16}" maxlength="16" placeholder="Card Number (16 digits)" required>
+      <input type="text" id="expiry" placeholder="MM/YY" pattern="\d{2}/\d{2}" required>
+      <input type="password" id="cvv" inputmode="numeric" maxlength="4" placeholder="CVV" required>
+      <button type="button" onclick="processCard()">Pay with Card</button>
+    </form>
+
+    <!-- UPI Form -->
+    <form id="upiForm" class="hidden">
+      <input type="text" id="upiId" placeholder="Enter UPI ID (example: name@bank)" required>
+      <button type="button" onclick="processUPI()">Pay via UPI</button>
+    </form>
+
+    <!-- Result Message -->
+    <div id="result"></div>
+  </div>
+
+  <script src="payment.js"></script>
+</body>
+</html>
