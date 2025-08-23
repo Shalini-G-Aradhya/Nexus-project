@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Farmers Platform</title>
+<style>
+:root {
+  --accent:#2b8a3e;
+  --muted:#6b7280;
+  --bg:#f7faf7;
+  font-family:Inter,system-ui,Arial,Helvetica,sans-serif;
+}
+body {
+  margin:0;
+  font-family:Inter,system-ui,Arial,Helvetica,sans-serif;
+  min-height:100vh;
+  background: url("https://imgs.search.brave.com/OunwO0VJJnoNTXNISs_jataGz8UuguBhY8IiJw3s7Hk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNDkv/NzU2LzcxNC9zbWFs/bC9mYXJtZXItaG9s/ZGluZy1iYXNrZXQt/d2l0aC10b21hdG9l/cy0yZC1jYXJ0b29u/LWFuaW1hdGlvbi1m/cmVlLXZpZGVvLmpw/Zw") no-repeat center center fixed;
+  background-size: cover;
+}
+header { display:flex; justify-content:space-between; align-items:center; padding:16px 24px; background:white; box-shadow:0 1px 6px rgba(2,6,23,.06);}
+.logo{font-weight:700;color:var(--accent);}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none;font-weight:600;cursor:pointer;}
+.page{display:none;padding:40px 24px;max-width:900px;margin:0 auto;}
+.page.active{display:block;}
+.content-card { background:white; padding:24px; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.1); }
+form{display:flex;flex-direction:column;gap:12px;}
+input,select,textarea{padding:10px;border-radius:8px;border:1px solid #ccc;font-size:15px;}
+textarea{resize:vertical;}
+.back-link{color:var(--accent);font-weight:600;cursor:pointer;text-decoration:none;margin-top:10px;display:inline-block;}
+.btn{padding:10px 16px;border-radius:8px;border:0;font-weight:700;cursor:pointer;}
+.btn-primary{background:var(--accent);color:white;}
+.btn-outline{background:transparent;border:2px solid var(--accent);color:var(--accent);}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+table, th, td{border:1px solid #ccc;}
+th, td{padding:8px;text-align:left;}
+/* Home page styles */
+.hero{padding:48px 24px;max-width:900px;margin:0 auto}
+.hero-inner{background:white;padding:28px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,.06)}
+.tagline{font-size:28px;margin:0 0 12px 0}
+.sub{color:var(--muted);margin:0 0 18px 0}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.ticker{margin-top:16px;padding:10px;border-radius:8px;background:#eef6ee;display:flex;gap:12px;align-items:center;overflow:hidden;flex-wrap:wrap}
+.ticker-item{min-width:120px;padding:6px 10px;border-radius:6px;background:white;box-shadow:0 2px 6px rgba(2,6,23,.04);display:flex;justify-content:space-between;align-items:center}
+.price{font-weight:800;color:var(--accent)}
+.quick-links{display:flex;gap:14px;margin-top:14px}
+.qlink{padding:8px 10px;background:transparent;border-radius:8px;border:1px solid #e6eef0;color:var(--muted);text-decoration:none;cursor:pointer}
+.about-card{background:white;padding:18px;margin-top:20px;border-radius:12px;box-shadow:0 6px 16px rgba(2,6,23,.04);text-align:left}
+.services{display:flex;gap:12px;margin-top:12px}
+.icon{width:56px;height:56px;border-radius:10px;background:#f1f9f2;display:flex;align-items:center;justify-content:center;font-size:24px}
+.small{color:var(--muted);font-size:14px}
+footer{text-align:center;padding:18px;color:var(--muted);font-size:13px;margin-top:30px}
+
+/* Payment modal */
+#paymentModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000;}
+#paymentContainer { background:white; padding:20px; border-radius:10px; width:350px; text-align:center;}
+.hidden { display:none; }
+#result { margin-top:15px; font-weight:bold; }
+
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">NEXUS</div>
+  <nav>
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('signup')">Sign Up</a>
+    <a onclick="showPage('login')">Login</a>
+    <a class="qlink" onclick="showPage('support')">Support</a>
+
+  </nav>
+</header>
+
+<!-- HOME PAGE -->
+<main id="home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <h1 class="tagline">Welcome to Nexus Farmers Platform</h1>
+      <p class="sub">Fair prices, easy trade, and smarter farming for everyone.</p>
+      <div class="cta">
+        <button onclick="showPage('signup')" class="btn btn-primary">Sign Up</button>
+        <button onclick="showPage('login')" class="btn btn-outline">Login</button>
+      </div>
+      <div class="ticker" id="priceTicker"></div>
+      <div class="quick-links">
+
+      </div>
+    </div>
+
+    <div class="about-card">
+      <h3>Our Services</h3>
+      <div class="services">
+        <div class="icon">🌱</div>
+        <div>
+          <h4>Fair Trade</h4>
+          <p class="small">Transparent pricing for all crops.</p>
+        </div>
+      </div>
+      <div class="services">
+        <div class="icon">🚜</div>
+        <div>
+          <h4>Equipment Rental</h4>
+          <p class="small">Affordable tools for farmers.</p>
+        </div>
+      </div>
+      <div class="services">
+        <div class="icon">💳</div>
+        <div>
+          <h4>Easy Payment</h4>
+          <p class="small">Secure online transactions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; <span id="year"></span> Nexus Farmers Platform
+  </footer>
+</main>
+
+<!-- SIGNUP PAGE -->
+<main id="signup" class="page">
+  <div class="content-card">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <input type="text" placeholder="Full Name" required>
+      <input type="tel" placeholder="Mobile Number" required>
+      <select required>
+        <option value="">Select Role</option>
+        <option value="Farmer">Farmer</option>
+        <option value="Buyer">Buyer</option>
+        <option value="Equipment Provider">Equipment Provider</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
+  </div>
+</main>
+
+<!-- LOGIN PAGE -->
+<main id="login" class="page">
+  <div class="content-card">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="tel" placeholder="Mobile Number" required>
+      <select required id="loginRole">
+        <option value="">Select Role</option>
+        <option value="Farmer">Farmer</option>
+        <option value="Buyer">Buyer</option>
+        <option value="Equipment Provider">Equipment Provider</option>
+      </select>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
+  </div>
+</main>
+
+<!-- SUPPORT PAGE -->
+  <main id="support" class="page">
+    <div class="content-card">
+    <h2>Support</h2>
+    <p class="small">For help, contact us at <b>support@nexus.com</b> or call 1800-123-456.</p>
+    <a class="back-link" onclick="showPage('home')">← Back to Home</a>
+    </div>
+  </main>
+
+<!-- BUYER DASHBOARD -->
+<main id="buyerDashboard" class="page">
+  <div class="content-card">
+    <h1>🛒 Buyer Dashboard</h1>
+    <button class="back-link" onclick="showPage('home')">← Back to Home</button>
+    <div id="cropContainer"></div>
+    <div>
+      <h2>📑 Orders & Offers</h2>
+      <p id="noOrders">No activity yet.</p>
+      <ul id="ordersList"></ul>
+    </div>
+  </div>
+</main>
+
+<!-- FARMER DASHBOARD -->
+<main id="farmerDashboard" class="page">
+  <div class="content-card">
+    <h1>👨‍🌾 Farmers Dashboard</h1>
+    <div class="section">
+      <h2>Add Your Crop</h2>
+      <form id="cropForm">
+        <input type="text" id="crop" placeholder="Crop Name" required>
+        <input type="number" id="quantity" placeholder="Quantity (kg)" required>
+        <input type="number" id="price" placeholder="Base Price (₹)" required>
+        <button type="submit">➕ Add Crop</button>
+      </form>
+    </div>
+    <div class="section">
+      <h2>🌾 Your Crops</h2>
+      <ul id="cropsList">
+        <li>No crops added yet.</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<!-- EQUIPMENT DASHBOARD -->
+<main id="equipmentDashboard" class="page">
+  <div class="content-card">
+    <h1>🚜 Equipment Rental Dashboard</h1>
+    <div class="section">
+      <h2>Add Equipment</h2>
+      <form id="equipForm">
+        <select id="equipType" required>
+          <option value="">-- Select Equipment --</option>
+          <option value="Tractor">Tractor</option>
+          <option value="Harvester">Harvester</option>
+          <option value="Plough">Plough</option>
+          <option value="Seeder">Seeder</option>
+          <option value="Sprayer">Sprayer</option>
+        </select>
+        <input type="number" id="equipPrice" placeholder="Rent Price per Day (₹)" required>
+        <input type="text" id="equipContact" placeholder="Contact Number" required>
+        <button type="submit">➕ Add Equipment</button>
+      </form>
+    </div>
+    <div class="section">
+      <h3>Available Equipment</h3>
+      <table id="equipTable">
+        <thead>
+          <tr>
+            <th>Equipment</th>
+            <th>Rent (₹/day)</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Tractor</td>
+            <td>₹1200</td>
+            <td>9876543210</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<!-- PAYMENT MODAL -->
+<div id="paymentModal">
+  <div id="paymentContainer">
+    <h2>Choose Payment Method</h2>
+    <div id="itemInfo">
+      <div>Item: <strong id="displayItem">—</strong></div>
+      <div>Total Amount: <strong id="displayAmount">₹0.00</strong></div>
+    </div>
+    <div class="options">
+      <label><input type="radio" name="payment" value="card"> Card Payment</label>
+      <label><input type="radio" name="payment" value="cod"> Cash on Delivery (COD)</label>
+      <label><input type="radio" name="payment" value="upi"> UPI Payment</label>
+    </div>
+    <form id="cardForm" class="hidden">
+      <input type="text" id="cardName" placeholder="Cardholder Name" required>
+      <input type="text" id="cardNumber" inputmode="numeric" pattern="\d{16}" maxlength="16" placeholder="Card Number" required>
+      <input type="text" id="expiry" placeholder="MM/YY" pattern="\d{2}/\d{2}" required>
+      <input type="password" id="cvv" maxlength="4" placeholder="CVV" required>
+      <button type="button" onclick="processCard()">Pay with Card</button>
+    </form>
+    <form id="upiForm" class="hidden">
+      <input type="text" id="upiId" placeholder="Enter UPI ID (example: name@bank)" required>
+      <button type="button" onclick="processUPI()">Pay via UPI</button>
+    </form>
+    <div id="result"></div>
+    <button style="margin-top:10px;" onclick="closePayment()">Close</button>
+  </div>
+</div>
+
+<script>
+// Set current year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Page navigation
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// Signup/Login
+document.getElementById('signupForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const role = this.querySelector('select').value;
+  if(role==='Buyer'){ showPage('buyerDashboard'); } 
+  else if(role==='Farmer'){ showPage('farmerDashboard'); } 
+  else if(role==='Equipment Provider'){ showPage('equipmentDashboard'); } 
+});
+document.getElementById('loginForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const role = document.getElementById('loginRole').value;
+  if(role==='Buyer'){ showPage('buyerDashboard'); } 
+  else if(role==='Farmer'){ showPage('farmerDashboard'); } 
+  else if(role==='Equipment Provider'){ showPage('equipmentDashboard'); } 
+});
+
+// Crop price ticker simulation
+const cropsTicker = [
+  {name:'Tomato', unit:'₹/kg', price:24.50},
+  {name:'Wheat', unit:'₹/kg', price:22.00},
+  {name:'Onion', unit:'₹/kg', price:18.75},
+  {name:'Potato', unit:'₹/kg', price:14.20},
+  {name:'Rice', unit:'₹/kg', price:35.00}
+];
+const ticker = document.getElementById('priceTicker');
+
+function renderTicker(){
+  ticker.innerHTML = '';
+  cropsTicker.forEach(c => {
+    const item = document.createElement('div');
+    item.className = 'ticker-item';
+    item.innerHTML = `<div>${c.name}</div><div class='price'>${c.price.toFixed(2)}<span style="font-size:12px;margin-left:4px;color:var(--muted)">${c.unit}</span></div>`;
+    ticker.appendChild(item);
+  });
+}
+function jitterPrices(){
+  cropsTicker.forEach(c => {
+    const change = (Math.random()-0.5) * (c.price * 0.03);
+    c.price = Math.max(1, c.price + change);
+  });
+  renderTicker();
+}
+renderTicker();
+setInterval(jitterPrices, 3000);
+
+// Buyer logic
+const crops = [
+  { name:"Tomato", price:25, location:"Bangalore", img:"https://imgs.search.brave.com/5N1rDmEdNinjcgoZdvlo0Oe4IKfnqBOGbOcPKRpbAuk/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNTEv/MTQzLzg4MC9zbWFs/bC90b21hdG8tdHJh/bnNwYXJlbnQtYmFj/a2dyb3VuZC1wbmcu/cG5n" },
+  { name:"Wheat", price:22, location:"Mysore", img:"https://imgs.search.brave.com/w9ZNX-UVRDvw3TPDVYh6dlc7fmbKjeJjfan_gZsVV1k/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTA1/NTUwMzUyMi9waG90/by9lYXJzLW9mLXdo/ZWF0LWZ1bGwtZnJh/bWUuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPWZuX0c4a3Nr/N0FmQ0FqSlE3NmZa/NkhBTGJhSkZROHk2/OHRja0w3cEJ6a2s9" },
+  { name:"Onion", price:30, location:"Hubli", img:"https://imgs.search.brave.com/mbZYOYMgbGNEvB48sSfQR9sNci8iK22XrAk1p7c3WvM/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly93d3cu/ZnJlZXBuZ2xvZ29z/LmNvbS91cGxvYWRz/L29uaW9uLXBuZy9v/bmlvbi1mcmVzaC1v/bmlvbnMtcG5nLWlt/YWdlLXBuZ3BpeC01/LnBuZw" },
+  { name:"Rice", price:50, location:"Raichur", img:"https://imgs.search.brave.com/w8HW2YGV-O7VVlwcbDnfJbfK73tcltOXd7I9R0Hkhbs/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi93aGl0/ZS1yaWNlLTE2MTU4/MDkxLmpwZw" }
+];
+const orders = [];
+const cropContainer = document.getElementById('cropContainer');
+const ordersList = document.getElementById('ordersList');
+const noOrders = document.getElementById('noOrders');
+
+function updateOrders(){
+  ordersList.innerHTML='';
+  if(orders.length===0){ noOrders.style.display='block'; }
+  else{ noOrders.style.display='none'; orders.forEach(o=>{
+    const li=document.createElement('li'); li.textContent=o; ordersList.appendChild(li);
+  }); }
+}
+
+const paymentModal = document.getElementById('paymentModal');
+const displayAmount = document.getElementById('displayAmount');
+const displayItem = document.getElementById('displayItem');
+const cardForm = document.getElementById('cardForm');
+const upiForm = document.getElementById('upiForm');
+const result = document.getElementById('result');
+
+function renderCrops(){
+  cropContainer.innerHTML='';
+  crops.forEach(crop=>{
+    const card=document.createElement('div');
+    card.style.border='1px solid #ccc'; card.style.borderRadius='8px'; card.style.padding='10px'; card.style.width='200px'; 
+    card.style.display='inline-block'; card.style.margin='10px'; card.style.textAlign='center';
+    card.innerHTML=`<img src="${crop.img}" width="150"><h3>${crop.name}</h3><p><b>Price:</b> ₹${crop.price}</p><p><b>Location:</b> ${crop.location}</p>`;
+    const buyBtn=document.createElement('button'); buyBtn.textContent='Buy Now';
+    buyBtn.style.margin='5px'; buyBtn.onclick=()=>openPayment(crop.name, crop.price);
+    const offerBtn=document.createElement('button'); offerBtn.textContent='Make Offer';
+    offerBtn.style.margin='5px'; offerBtn.onclick=()=>{ const offer = prompt(`Offer for ${crop.name}`); if(offer){ orders.push(`📌 Offer ${crop.name} ₹${offer}`); updateOrders(); } };
+    card.appendChild(buyBtn); card.appendChild(offerBtn); cropContainer.appendChild(card);
+  });
+}
+renderCrops(); updateOrders();
+
+function openPayment(item, price){
+  displayItem.textContent=item; displayAmount.textContent=`₹${price}`; paymentModal.style.display='flex';
+  cardForm.classList.add('hidden'); upiForm.classList.add('hidden'); result.innerHTML='';  
+  document.querySelectorAll('input[name="payment"]').forEach(radio=>radio.checked=false);
+}
+function closePayment(){ paymentModal.style.display='none'; }
+
+document.querySelectorAll('input[name="payment"]').forEach(option=>{
+  option.addEventListener('change', ()=> {
+    if(option.value==='card'){ cardForm.classList.remove('hidden'); upiForm.classList.add('hidden'); result.innerHTML=''; }
+    else if(option.value==='upi'){ upiForm.classList.remove('hidden'); cardForm.classList.add('hidden'); result.innerHTML=''; }
+    else if(option.value==='cod'){ cardForm.classList.add('hidden'); upiForm.classList.add('hidden'); result.innerHTML=`Order Placed ✅<br>${displayItem.textContent}<br>${displayAmount.textContent}`; }
+  });
+});
+
+function processCard(){ result.innerHTML=`Card payment done ✅<br>${displayItem.textContent}<br>${displayAmount.textContent}`; }
+function processUPI(){ result.innerHTML=`UPI payment done ✅<br>${displayItem.textContent}<br>${displayAmount.textContent}`; }
+
+// Farmer dashboard
+const cropForm = document.getElementById('cropForm');
+const cropsList = document.getElementById('cropsList');
+cropForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  const crop = document.getElementById('crop').value;
+  const quantity = document.getElementById('quantity').value;
+  const price = document.getElementById('price').value;
+  if(cropsList.children.length===1 && cropsList.children[0].textContent==='No crops added yet.') cropsList.innerHTML='';
+  const li=document.createElement('li'); li.textContent=`${crop} - ${quantity}kg - ₹${price}`; cropsList.appendChild(li);
+  cropForm.reset();
+});
+
+// Equipment dashboard
+const equipForm=document.getElementById('equipForm');
+const equipTable=document.getElementById('equipTable').getElementsByTagName('tbody')[0];
+equipForm.addEventListener('submit', function(e){
+  e.preventDefault();
+  const type=document.getElementById('equipType').value;
+  const price=document.getElementById('equipPrice').value;
+  const contact=document.getElementById('equipContact').value;
+  const row=equipTable.insertRow();
+  row.insertCell(0).textContent=type; row.insertCell(1).textContent=`₹${price}`; row.insertCell(2).textContent=contact;
+  equipForm.reset();
+});
+</script>
+</body>
+</html>
